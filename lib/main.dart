@@ -1,4 +1,7 @@
 import 'package:flutter/material.dart';
+import 'package:water_jug/domain/water_jug/ui/water_jug_view.dart';
+import 'package:water_jug/service/tools/locale_tools.dart';
+import 'package:yalo_locale/lib.dart';
 
 void main() {
   runApp(const MyApp());
@@ -8,58 +11,21 @@ class MyApp extends StatelessWidget {
   const MyApp({Key? key}) : super(key: key);
   @override
   Widget build(BuildContext context) {
-    return MaterialApp(
-      title: 'Flutter Demo',
-      theme: ThemeData(
-        primarySwatch: Colors.blue,
-      ),
-      home: const MyHomePage(title: 'Flutter Demo Home Page'),
-    );
-  }
-}
-
-class MyHomePage extends StatefulWidget {
-  const MyHomePage({Key? key, required this.title}) : super(key: key);
-  final String title;
-
-  @override
-  State<MyHomePage> createState() => _MyHomePageState();
-}
-
-class _MyHomePageState extends State<MyHomePage> {
-  int _counter = 0;
-
-  void _incrementCounter() {
-    setState(() {
-      _counter++;
-    });
-  }
-
-  @override
-  Widget build(BuildContext context) {
-    return Scaffold(
-      appBar: AppBar(
-        title: Text(widget.title),
-      ),
-      body: Center(
-        child: Column(
-          mainAxisAlignment: MainAxisAlignment.center,
-          children: <Widget>[
-            const Text(
-              'You have pushed the button this many times:',
-            ),
-            Text(
-              '$_counter',
-              style: Theme.of(context).textTheme.headline4,
-            ),
-          ],
-        ),
-      ),
-      floatingActionButton: FloatingActionButton(
-        onPressed: _incrementCounter,
-        tooltip: 'Increment',
-        child: const Icon(Icons.add),
-      ),
+    return FutureBuilder(
+      future: LocalizationDelegate().load(LocaleTools.currentLocale()).then((LocalizationMessages loc) => loc.appTitle),
+      initialData: '...',
+      builder: (BuildContext context, AsyncSnapshot<String> appTitle) {
+        /// I don't use [MaterialApp.router] because there will not be any routing logic - only one view
+        return MaterialApp(
+          title: appTitle.data!,
+          supportedLocales: supportedLocales,
+          localizationsDelegates: localizationsDelegates,
+          theme: ThemeData(
+            primarySwatch: Colors.blue,
+          ),
+          home: const WaterJugView(),
+        );
+      },
     );
   }
 }
