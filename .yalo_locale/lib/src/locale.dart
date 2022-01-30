@@ -3,14 +3,31 @@ import 'package:flutter/src/widgets/localizations.dart';
 import 'package:flutter/widgets.dart';
 import 'package:intl/intl.dart';
 
+      abstract class _JugViewModal {
+      late String fieldHint;
+      late String button;
+      }
+      class _EnJugViewModal extends _JugViewModal {
+      /// Description: ""
+    /// Example: "Input capacity for jug"
+    @override
+    final String fieldHint = Intl.message('Input capacity for jug', name: 'fieldHint', desc: '');
+      /// Description: ""
+    /// Example: "Select"
+    @override
+    final String button = Intl.message('Select', name: 'button', desc: '');
+      }
       abstract class _JugView {
       late String emptyJugHint;
+      late _JugViewModal modal;
       }
       class _EnJugView extends _JugView {
       /// Description: ""
     /// Example: "Tap me"
     @override
     final String emptyJugHint = Intl.message('Tap me', name: 'emptyJugHint', desc: '');
+      @override
+    final _JugViewModal modal = _EnJugViewModal();
       }
       abstract class LocalizationMessages {
       late String appTitle;
@@ -24,11 +41,23 @@ import 'package:intl/intl.dart';
       @override
     final _JugView jugView = _EnJugView();
       }
+      class _RuJugViewModal extends _JugViewModal {
+      /// Description: ""
+    /// Example: "Введите объем кувшина"
+    @override
+    final String fieldHint = Intl.message('Введите объем кувшина', name: 'fieldHint', desc: '');
+      /// Description: ""
+    /// Example: "Выбрать"
+    @override
+    final String button = Intl.message('Выбрать', name: 'button', desc: '');
+      }
       class _RuJugView extends _JugView {
       /// Description: ""
     /// Example: "Нижми меня"
     @override
     final String emptyJugHint = Intl.message('Нижми меня', name: 'emptyJugHint', desc: '');
+      @override
+    final _JugViewModal modal = _RuJugViewModal();
       }
       class _Ru extends LocalizationMessages {
       /// Description: ""

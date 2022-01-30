@@ -2,3 +2,6 @@ appTitle:
   Водные кувшины
 jugView:
   emptyJugHint: Нижми меня
+  modal:
+    fieldHint: Введите объем кувшина
+    button: Выбрать

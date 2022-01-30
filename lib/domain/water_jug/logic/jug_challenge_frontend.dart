@@ -22,11 +22,12 @@ class JugChallengeFrontend with ChangeNotifier {
     ),
   };
 
-  Future<void> setMaxVolumeOf(String jugId) async {
+  Future<void> setMaxVolumeOf(String jugId, int? maxVolume) async {
     assert(jugs.keys.contains(jugId));
-    print('FILL $jugId');
-    jugs[jugId] = jugs[jugId]!.copyWith(maxVolume: 10);
-    notifyListeners();
+    if (maxVolume != null) {
+      jugs[jugId] = jugs[jugId]!.copyWith(maxVolume: maxVolume);
+      notifyListeners();
+    }
   }
 
   Future<void> play() async {

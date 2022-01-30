@@ -2,3 +2,6 @@ appTitle:
   Water Jugs
 jugView:
   emptyJugHint: Tap me
+  modal:
+    fieldHint: Input capacity for jug
+    button: Select
