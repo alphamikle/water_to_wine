@@ -18,8 +18,12 @@ final _privateConstructorUsedError = UnsupportedError(
 class _$JugEntityTearOff {
   const _$JugEntityTearOff();
 
-  _JugEntity call({required int currentVolume, required int maxVolume}) {
+  _JugEntity call(
+      {required String id,
+      required int currentVolume,
+      required int maxVolume}) {
     return _JugEntity(
+      id: id,
       currentVolume: currentVolume,
       maxVolume: maxVolume,
     );
@@ -31,6 +35,7 @@ const $JugEntity = _$JugEntityTearOff();
 
 /// @nodoc
 mixin _$JugEntity {
+  String get id => throw _privateConstructorUsedError;
   int get currentVolume => throw _privateConstructorUsedError;
   int get maxVolume => throw _privateConstructorUsedError;
 
@@ -43,7 +48,7 @@ mixin _$JugEntity {
 abstract class $JugEntityCopyWith<$Res> {
   factory $JugEntityCopyWith(JugEntity value, $Res Function(JugEntity) then) =
       _$JugEntityCopyWithImpl<$Res>;
-  $Res call({int currentVolume, int maxVolume});
+  $Res call({String id, int currentVolume, int maxVolume});
 }
 
 /// @nodoc
@@ -56,10 +61,15 @@ class _$JugEntityCopyWithImpl<$Res> implements $JugEntityCopyWith<$Res> {
 
   @override
   $Res call({
+    Object? id = freezed,
     Object? currentVolume = freezed,
     Object? maxVolume = freezed,
   }) {
     return _then(_value.copyWith(
+      id: id == freezed
+          ? _value.id
+          : id // ignore: cast_nullable_to_non_nullable
+              as String,
       currentVolume: currentVolume == freezed
           ? _value.currentVolume
           : currentVolume // ignore: cast_nullable_to_non_nullable
@@ -78,7 +88,7 @@ abstract class _$JugEntityCopyWith<$Res> implements $JugEntityCopyWith<$Res> {
           _JugEntity value, $Res Function(_JugEntity) then) =
       __$JugEntityCopyWithImpl<$Res>;
   @override
-  $Res call({int currentVolume, int maxVolume});
+  $Res call({String id, int currentVolume, int maxVolume});
 }
 
 /// @nodoc
@@ -92,10 +102,15 @@ class __$JugEntityCopyWithImpl<$Res> extends _$JugEntityCopyWithImpl<$Res>
 
   @override
   $Res call({
+    Object? id = freezed,
     Object? currentVolume = freezed,
     Object? maxVolume = freezed,
   }) {
     return _then(_JugEntity(
+      id: id == freezed
+          ? _value.id
+          : id // ignore: cast_nullable_to_non_nullable
+              as String,
       currentVolume: currentVolume == freezed
           ? _value.currentVolume
           : currentVolume // ignore: cast_nullable_to_non_nullable
@@ -111,8 +126,11 @@ class __$JugEntityCopyWithImpl<$Res> extends _$JugEntityCopyWithImpl<$Res>
 /// @nodoc
 
 class _$_JugEntity implements _JugEntity {
-  const _$_JugEntity({required this.currentVolume, required this.maxVolume});
+  const _$_JugEntity(
+      {required this.id, required this.currentVolume, required this.maxVolume});
 
+  @override
+  final String id;
   @override
   final int currentVolume;
   @override
@@ -120,7 +138,7 @@ class _$_JugEntity implements _JugEntity {
 
   @override
   String toString() {
-    return 'JugEntity(currentVolume: $currentVolume, maxVolume: $maxVolume)';
+    return 'JugEntity(id: $id, currentVolume: $currentVolume, maxVolume: $maxVolume)';
   }
 
   @override
@@ -128,6 +146,7 @@ class _$_JugEntity implements _JugEntity {
     return identical(this, other) ||
         (other.runtimeType == runtimeType &&
             other is _JugEntity &&
+            const DeepCollectionEquality().equals(other.id, id) &&
             const DeepCollectionEquality()
                 .equals(other.currentVolume, currentVolume) &&
             const DeepCollectionEquality().equals(other.maxVolume, maxVolume));
@@ -136,6 +155,7 @@ class _$_JugEntity implements _JugEntity {
   @override
   int get hashCode => Object.hash(
       runtimeType,
+      const DeepCollectionEquality().hash(id),
       const DeepCollectionEquality().hash(currentVolume),
       const DeepCollectionEquality().hash(maxVolume));
 
@@ -147,8 +167,12 @@ class _$_JugEntity implements _JugEntity {
 
 abstract class _JugEntity implements JugEntity {
   const factory _JugEntity(
-      {required int currentVolume, required int maxVolume}) = _$_JugEntity;
+      {required String id,
+      required int currentVolume,
+      required int maxVolume}) = _$_JugEntity;
 
+  @override
+  String get id;
   @override
   int get currentVolume;
   @override

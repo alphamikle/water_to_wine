@@ -7,10 +7,6 @@ class Jug extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Stack(
-      children: [
-        SvgPicture.asset(Assets.bottleS),
-      ],
-    );
+    return SvgPicture.asset(Assets.bottleS);
   }
 }

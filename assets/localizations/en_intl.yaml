@@ -1,2 +1,4 @@
 appTitle:
   Water Jugs
+jugView:
+  emptyJugHint: Tap me

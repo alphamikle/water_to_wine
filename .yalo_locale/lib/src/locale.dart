@@ -3,20 +3,40 @@ import 'package:flutter/src/widgets/localizations.dart';
 import 'package:flutter/widgets.dart';
 import 'package:intl/intl.dart';
 
+      abstract class _JugView {
+      late String emptyJugHint;
+      }
+      class _EnJugView extends _JugView {
+      /// Description: ""
+    /// Example: "Tap me"
+    @override
+    final String emptyJugHint = Intl.message('Tap me', name: 'emptyJugHint', desc: '');
+      }
       abstract class LocalizationMessages {
       late String appTitle;
+      late _JugView jugView;
       }
       class _En extends LocalizationMessages {
       /// Description: ""
     /// Example: "Water Jugs"
     @override
     final String appTitle = Intl.message('Water Jugs', name: 'appTitle', desc: '');
+      @override
+    final _JugView jugView = _EnJugView();
+      }
+      class _RuJugView extends _JugView {
+      /// Description: ""
+    /// Example: "Нижми меня"
+    @override
+    final String emptyJugHint = Intl.message('Нижми меня', name: 'emptyJugHint', desc: '');
       }
       class _Ru extends LocalizationMessages {
       /// Description: ""
     /// Example: "Водные кувшины"
     @override
     final String appTitle = Intl.message('Водные кувшины', name: 'appTitle', desc: '');
+      @override
+    final _JugView jugView = _RuJugView();
       }
     class LocalizationDelegate extends LocalizationsDelegate<LocalizationMessages> {
     @override
@@ -44,6 +64,20 @@ import 'package:intl/intl.dart';
     static LocalizationMessages get en => LocalizationDelegate()._languageMap['en']!;
     static LocalizationMessages get ru => LocalizationDelegate()._languageMap['ru']!;
     
+    
+    static LocalizationMessages? getLocale(String locale) {
+      final List<String> localeData = locale.split('_');
+      String languageCode = '';
+      String countryCode = '';
+      if (localeData.isEmpty) {
+        throw Exception('Not found any locale info in string ${locale}');
+      }
+      languageCode = localeData[0];
+      if (localeData.length > 1) {
+        countryCode = localeData[1];
+      }
+      return LocalizationDelegate()._languageMap[languageCode];
+    }
   }
   
   final List<LocalizationsDelegate> localizationsDelegates = [LocalizationDelegate(), ...GlobalMaterialLocalizations.delegates];
