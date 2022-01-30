@@ -6,10 +6,12 @@ import 'package:yalo_locale/lib.dart';
 class CapacityAmountModal extends StatefulWidget {
   const CapacityAmountModal({
     required this.initialValue,
+    required this.hint,
     Key? key,
   }) : super(key: key);
 
   final int initialValue;
+  final String hint;
 
   @override
   State<CapacityAmountModal> createState() => _CapacityAmountModalState();
@@ -39,7 +41,7 @@ class _CapacityAmountModalState extends State<CapacityAmountModal> {
           TextFormField(
             controller: _controller,
             decoration: InputDecoration(
-              hintText: loc.jugView.modal.fieldHint,
+              hintText: widget.hint,
             ),
             keyboardType: TextInputType.number,
             inputFormatters: [

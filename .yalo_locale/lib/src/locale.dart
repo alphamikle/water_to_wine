@@ -4,18 +4,28 @@ import 'package:flutter/widgets.dart';
 import 'package:intl/intl.dart';
 
       abstract class _JugViewModal {
-      late String fieldHint;
       late String button;
+      late String firstJugHint;
+      late String secondJugHint;
+      late String wishedAmountHint;
       }
       class _EnJugViewModal extends _JugViewModal {
-      /// Description: ""
-    /// Example: "Set wished capacity amount"
-    @override
-    final String fieldHint = Intl.message('Set wished capacity amount', name: 'fieldHint', desc: '');
       /// Description: ""
     /// Example: "Select"
     @override
     final String button = Intl.message('Select', name: 'button', desc: '');
+      /// Description: ""
+    /// Example: "Set capacity for the first jug"
+    @override
+    final String firstJugHint = Intl.message('Set capacity for the first jug', name: 'firstJugHint', desc: '');
+      /// Description: ""
+    /// Example: "Set capacity for the second jug"
+    @override
+    final String secondJugHint = Intl.message('Set capacity for the second jug', name: 'secondJugHint', desc: '');
+      /// Description: ""
+    /// Example: "Set wished capacity"
+    @override
+    final String wishedAmountHint = Intl.message('Set wished capacity', name: 'wishedAmountHint', desc: '');
       }
       abstract class _JugViewActions {
       late String start;
@@ -70,13 +80,21 @@ import 'package:intl/intl.dart';
       }
       class _RuJugViewModal extends _JugViewModal {
       /// Description: ""
-    /// Example: "Введите желаемый объем"
-    @override
-    final String fieldHint = Intl.message('Введите желаемый объем', name: 'fieldHint', desc: '');
-      /// Description: ""
     /// Example: "Выбрать"
     @override
     final String button = Intl.message('Выбрать', name: 'button', desc: '');
+      /// Description: ""
+    /// Example: "Введите объем первого кувшина"
+    @override
+    final String firstJugHint = Intl.message('Введите объем первого кувшина', name: 'firstJugHint', desc: '');
+      /// Description: ""
+    /// Example: "Введите объем второго кувшина"
+    @override
+    final String secondJugHint = Intl.message('Введите объем второго кувшина', name: 'secondJugHint', desc: '');
+      /// Description: ""
+    /// Example: "Введите требуемый объем"
+    @override
+    final String wishedAmountHint = Intl.message('Введите требуемый объем', name: 'wishedAmountHint', desc: '');
       }
       class _RuJugViewActions extends _JugViewActions {
       /// Description: ""

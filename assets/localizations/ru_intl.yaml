@@ -3,8 +3,10 @@ appTitle:
 jugView:
   emptyJugHint: Нажми меня
   modal:
-    fieldHint: Введите желаемый объем
     button: Выбрать
+    firstJugHint: Введите объем первого кувшина
+    secondJugHint: Введите объем второго кувшина
+    wishedAmountHint: Введите требуемый объем
   actions:
     start: Начать расчёты
     stop: Остановить расчёты

@@ -5,11 +5,17 @@ import 'package:water_jug/service/di/mounted_initializable.dart';
 class ModalDelegate implements MountedInitializable {
   late final GlobalKey<ScaffoldState> _rootScaffoldKey;
 
-  Future<int?> inputWaterCapacity(int currentCapacity) async {
+  Future<int?> inputWaterCapacity({
+    required int currentCapacity,
+    required String hint,
+  }) async {
     return showModalBottomSheet<int>(
       context: _rootScaffoldKey.currentContext!,
       isScrollControlled: true,
-      builder: (_) => CapacityAmountModal(initialValue: currentCapacity),
+      builder: (_) => CapacityAmountModal(
+        initialValue: currentCapacity,
+        hint: hint,
+      ),
     );
   }
 

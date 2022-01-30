@@ -31,17 +31,26 @@ class JugChallengeState with ChangeNotifier {
     ),
   };
 
-  Future<void> setJugCapacity(JugId jugId) async {
+  Future<void> setJugCapacity({
+    required JugId jugId,
+    required String hint,
+  }) async {
     assert(jugs.keys.contains(jugId));
-    final int? maxCapacity = await _modalDelegate.inputWaterCapacity(jugs[jugId]!.maxVolume);
+    final int? maxCapacity = await _modalDelegate.inputWaterCapacity(
+      currentCapacity: jugs[jugId]!.maxVolume,
+      hint: hint,
+    );
     if (maxCapacity != null && maxCapacity > 0) {
       jugs[jugId] = jugs[jugId]!.copyWith(maxVolume: maxCapacity);
       notifyListeners();
     }
   }
 
-  Future<void> setWishedCapacity() async {
-    final int? wishedCapacity = await _modalDelegate.inputWaterCapacity(this.wishedCapacity);
+  Future<void> setWishedCapacity(String hint) async {
+    final int? wishedCapacity = await _modalDelegate.inputWaterCapacity(
+      currentCapacity: this.wishedCapacity,
+      hint: hint,
+    );
     if (wishedCapacity != null && wishedCapacity > 0) {
       this.wishedCapacity = wishedCapacity;
       notifyListeners();

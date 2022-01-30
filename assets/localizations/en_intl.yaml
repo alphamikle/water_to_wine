@@ -3,8 +3,10 @@ appTitle:
 jugView:
   emptyJugHint: Tap me
   modal:
-    fieldHint: Set wished capacity amount
     button: Select
+    firstJugHint: Set capacity for the first jug
+    secondJugHint: Set capacity for the second jug
+    wishedAmountHint: Set wished capacity
   actions:
     start: Start computation
     stop: Stop compute
