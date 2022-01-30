@@ -1,8 +1,15 @@
 import 'package:flutter/cupertino.dart';
 import 'package:water_jug/domain/water_jug/logic/jug_entity.dart';
+import 'package:water_jug/service/routing/modal_delegate.dart';
 import 'package:water_jug/service/tools/keys.dart';
 
 class JugChallengeState with ChangeNotifier {
+  JugChallengeState({
+    required ModalDelegate modalDelegate,
+  }) : _modalDelegate = modalDelegate;
+
+  final ModalDelegate _modalDelegate;
+
   bool isFilled = false;
   bool isPlaying = false;
   int wishedCapacity = 0;
@@ -24,15 +31,17 @@ class JugChallengeState with ChangeNotifier {
     ),
   };
 
-  Future<void> setMaxVolumeOf(String jugId, int? maxVolume) async {
+  Future<void> setJugCapacity(JugId jugId) async {
     assert(jugs.keys.contains(jugId));
-    if (maxVolume != null && maxVolume > 0) {
-      jugs[jugId] = jugs[jugId]!.copyWith(maxVolume: maxVolume);
+    final int? maxCapacity = await _modalDelegate.inputWaterCapacity(jugs[jugId]!.maxVolume);
+    if (maxCapacity != null && maxCapacity > 0) {
+      jugs[jugId] = jugs[jugId]!.copyWith(maxVolume: maxCapacity);
       notifyListeners();
     }
   }
 
-  void setWishedCapacity(int? wishedCapacity) {
+  Future<void> setWishedCapacity() async {
+    final int? wishedCapacity = await _modalDelegate.inputWaterCapacity(this.wishedCapacity);
     if (wishedCapacity != null && wishedCapacity > 0) {
       this.wishedCapacity = wishedCapacity;
       notifyListeners();
