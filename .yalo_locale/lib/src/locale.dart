@@ -9,17 +9,38 @@ import 'package:intl/intl.dart';
       }
       class _EnJugViewModal extends _JugViewModal {
       /// Description: ""
-    /// Example: "Input capacity for jug"
+    /// Example: "Set wished capacity amount"
     @override
-    final String fieldHint = Intl.message('Input capacity for jug', name: 'fieldHint', desc: '');
+    final String fieldHint = Intl.message('Set wished capacity amount', name: 'fieldHint', desc: '');
       /// Description: ""
     /// Example: "Select"
     @override
     final String button = Intl.message('Select', name: 'button', desc: '');
       }
+      abstract class _JugViewActions {
+      late String start;
+      late String stop;
+      late String setWantedAmount;
+      }
+      class _EnJugViewActions extends _JugViewActions {
+      /// Description: ""
+    /// Example: "Start computation"
+    @override
+    final String start = Intl.message('Start computation', name: 'start', desc: '');
+      /// Description: ""
+    /// Example: "Stop compute"
+    @override
+    final String stop = Intl.message('Stop compute', name: 'stop', desc: '');
+      /// Description: ""
+    /// Example: "Set wanted amount"
+    @override
+    final String setWantedAmount = Intl.message('Set wanted amount', name: 'setWantedAmount', desc: '');
+      }
       abstract class _JugView {
       late String emptyJugHint;
       late _JugViewModal modal;
+      late _JugViewActions actions;
+      late String wishedAmount;
       }
       class _EnJugView extends _JugView {
       /// Description: ""
@@ -28,6 +49,12 @@ import 'package:intl/intl.dart';
     final String emptyJugHint = Intl.message('Tap me', name: 'emptyJugHint', desc: '');
       @override
     final _JugViewModal modal = _EnJugViewModal();
+      @override
+    final _JugViewActions actions = _EnJugViewActions();
+      /// Description: ""
+    /// Example: "Wished amount: "
+    @override
+    final String wishedAmount = Intl.message('Wished amount: ', name: 'wishedAmount', desc: '');
       }
       abstract class LocalizationMessages {
       late String appTitle;
@@ -43,21 +70,41 @@ import 'package:intl/intl.dart';
       }
       class _RuJugViewModal extends _JugViewModal {
       /// Description: ""
-    /// Example: "Введите объем кувшина"
+    /// Example: "Введите желаемый объем"
     @override
-    final String fieldHint = Intl.message('Введите объем кувшина', name: 'fieldHint', desc: '');
+    final String fieldHint = Intl.message('Введите желаемый объем', name: 'fieldHint', desc: '');
       /// Description: ""
     /// Example: "Выбрать"
     @override
     final String button = Intl.message('Выбрать', name: 'button', desc: '');
       }
+      class _RuJugViewActions extends _JugViewActions {
+      /// Description: ""
+    /// Example: "Начать расчёты"
+    @override
+    final String start = Intl.message('Начать расчёты', name: 'start', desc: '');
+      /// Description: ""
+    /// Example: "Остановить расчёты"
+    @override
+    final String stop = Intl.message('Остановить расчёты', name: 'stop', desc: '');
+      /// Description: ""
+    /// Example: "Ввести желаемое количество"
+    @override
+    final String setWantedAmount = Intl.message('Ввести желаемое количество', name: 'setWantedAmount', desc: '');
+      }
       class _RuJugView extends _JugView {
       /// Description: ""
-    /// Example: "Нижми меня"
+    /// Example: "Нажми меня"
     @override
-    final String emptyJugHint = Intl.message('Нижми меня', name: 'emptyJugHint', desc: '');
+    final String emptyJugHint = Intl.message('Нажми меня', name: 'emptyJugHint', desc: '');
       @override
     final _JugViewModal modal = _RuJugViewModal();
+      @override
+    final _JugViewActions actions = _RuJugViewActions();
+      /// Description: ""
+    /// Example: "Желаемое количество: "
+    @override
+    final String wishedAmount = Intl.message('Желаемое количество: ', name: 'wishedAmount', desc: '');
       }
       class _Ru extends LocalizationMessages {
       /// Description: ""

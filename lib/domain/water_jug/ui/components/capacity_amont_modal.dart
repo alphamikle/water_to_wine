@@ -1,34 +1,29 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
-import 'package:provider/provider.dart';
-import 'package:water_jug/domain/water_jug/logic/jug_challenge_frontend.dart';
-import 'package:water_jug/domain/water_jug/logic/jug_entity.dart';
 import 'package:water_jug/service/tools/paddings.dart';
 import 'package:yalo_locale/lib.dart';
 
-class JugFillMaxVolumeModal extends StatefulWidget {
-  const JugFillMaxVolumeModal({
-    required this.jugId,
+class CapacityAmountModal extends StatefulWidget {
+  const CapacityAmountModal({
+    required this.initialValue,
     Key? key,
   }) : super(key: key);
 
-  final JugId jugId;
+  final int initialValue;
 
   @override
-  State<JugFillMaxVolumeModal> createState() => _JugFillMaxVolumeModalState();
+  State<CapacityAmountModal> createState() => _CapacityAmountModalState();
 }
 
-class _JugFillMaxVolumeModalState extends State<JugFillMaxVolumeModal> {
+class _CapacityAmountModalState extends State<CapacityAmountModal> {
   final TextEditingController _controller = TextEditingController();
 
   @override
   void initState() {
     super.initState();
 
-    final JugChallengeFrontend jugChallengeFrontend = context.read();
-    final int currentMaxVolume = jugChallengeFrontend.jugs[widget.jugId]!.maxVolume;
-    if (currentMaxVolume > 0) {
-      _controller.value = TextEditingValue(text: currentMaxVolume.toString());
+    if (widget.initialValue > 0) {
+      _controller.value = TextEditingValue(text: widget.initialValue.toString());
     }
   }
 
