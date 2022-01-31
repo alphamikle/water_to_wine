@@ -3,10 +3,22 @@ import 'package:water_jug/domain/water_jug/logic/decision_finder.dart';
 
 void main() {
   group('Decision finder tests', () {
-    test('Easy level', () {
+    test('1', () {
       final finder = DecisionFinder();
       final path = finder.findShortestPath(first: 3, second: 5, wished: 4);
       expect(path?.length, 7);
+    });
+
+    test('2', () {
+      final finder = DecisionFinder();
+      final path = finder.findShortestPath(first: 2, second: 6, wished: 4);
+      expect(path?.length, 2);
+    });
+
+    test('3', () {
+      final finder = DecisionFinder();
+      final path = finder.findShortestPath(first: 2, second: 6, wished: 4);
+      expect(path?.length, 2);
     });
   });
 }

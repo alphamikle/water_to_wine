@@ -109,6 +109,7 @@ class JugChallengeState with ChangeNotifier {
     final List<Node>? path = DecisionFinder().findShortestPath(first: firstJug.maxVolume, second: secondJug.maxVolume, wished: wishedCapacity);
     if (path == null) {
       await _resetState();
+      stop();
       _snackBarDelegate.showError(_localeDelegate.loc.jugView.impossibleToCompute);
       throw Exception(_localeDelegate.loc.jugView.impossibleToCompute);
     }

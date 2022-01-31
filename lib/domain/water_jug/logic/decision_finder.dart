@@ -80,6 +80,9 @@ class DecisionFinder {
       biggest = max(first, second);
       smallest = min(first, second);
     }
+    if (biggest % 2 == 0 && first % 2 == 0 && second % 2 == 0) {
+      return 1;
+    }
     return biggest;
   }
 
@@ -102,6 +105,7 @@ class DecisionFinder {
         }
       }
     }
+    print('SHORTEST PATH: $shortestPath');
     return shortestPath;
   }
 }

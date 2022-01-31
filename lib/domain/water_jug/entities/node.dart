@@ -19,6 +19,8 @@ class Node {
     return '[$first,$second]';
   }
 
+  String toJSON() => toString();
+
   @override
   bool operator ==(Object other) {
     if (other is Node) {
