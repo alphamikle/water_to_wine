@@ -46,11 +46,56 @@ import 'package:intl/intl.dart';
     @override
     final String setWantedAmount = Intl.message('Set wanted amount', name: 'setWantedAmount', desc: '');
       }
+      abstract class _JugViewComputationFinished {
+      late String start;
+        String end(int howMany);
+        }
+      class _EnJugViewComputationFinished extends _JugViewComputationFinished {
+      /// Description: ""
+    /// Example: "Computations took "
+    @override
+    final String start = Intl.message('Computations took ', name: 'start', desc: '');
+      /// Description: "null"
+    /// Example: "zero:  steps, one:  step, two:  steps, few:  steps, many:  steps, other:  steps"
+    @override
+    String end(int howMany) => Intl.plural(howMany,
+      name: 'end',
+      zero: ' steps',
+      one: ' step',
+      two: ' steps',
+      few: ' steps',
+      many: ' steps',
+      other: ' steps',
+      desc: 'null',
+    );
+      }
+      abstract class _JugViewErrors {
+      late String firstNotFilled;
+      late String secondNotFilled;
+      late String wishedCapacityNotFilled;
+      }
+      class _EnJugViewErrors extends _JugViewErrors {
+      /// Description: ""
+    /// Example: "Need to set max volume of the first jug"
+    @override
+    final String firstNotFilled = Intl.message('Need to set max volume of the first jug', name: 'firstNotFilled', desc: '');
+      /// Description: ""
+    /// Example: "Need to set max volume of the second jug"
+    @override
+    final String secondNotFilled = Intl.message('Need to set max volume of the second jug', name: 'secondNotFilled', desc: '');
+      /// Description: ""
+    /// Example: "Need to set wished capacity"
+    @override
+    final String wishedCapacityNotFilled = Intl.message('Need to set wished capacity', name: 'wishedCapacityNotFilled', desc: '');
+      }
       abstract class _JugView {
       late String emptyJugHint;
       late _JugViewModal modal;
       late _JugViewActions actions;
       late String wishedAmount;
+      late _JugViewComputationFinished computationFinished;
+      late String impossibleToCompute;
+      late _JugViewErrors errors;
       }
       class _EnJugView extends _JugView {
       /// Description: ""
@@ -65,6 +110,14 @@ import 'package:intl/intl.dart';
     /// Example: "Wished amount: "
     @override
     final String wishedAmount = Intl.message('Wished amount: ', name: 'wishedAmount', desc: '');
+      @override
+    final _JugViewComputationFinished computationFinished = _EnJugViewComputationFinished();
+      /// Description: ""
+    /// Example: "Impossible to find a solution"
+    @override
+    final String impossibleToCompute = Intl.message('Impossible to find a solution', name: 'impossibleToCompute', desc: '');
+      @override
+    final _JugViewErrors errors = _EnJugViewErrors();
       }
       abstract class LocalizationMessages {
       late String appTitle;
@@ -110,6 +163,39 @@ import 'package:intl/intl.dart';
     @override
     final String setWantedAmount = Intl.message('Ввести желаемое количество', name: 'setWantedAmount', desc: '');
       }
+      class _RuJugViewComputationFinished extends _JugViewComputationFinished {
+      /// Description: ""
+    /// Example: "Расчёты завершены за: "
+    @override
+    final String start = Intl.message('Расчёты завершены за: ', name: 'start', desc: '');
+      /// Description: "null"
+    /// Example: "zero:  шагов, one:  шаг, two:  шага, few:  шага, many:  шагов, other:  шагов"
+    @override
+    String end(int howMany) => Intl.plural(howMany,
+      name: 'end',
+      zero: ' шагов',
+      one: ' шаг',
+      two: ' шага',
+      few: ' шага',
+      many: ' шагов',
+      other: ' шагов',
+      desc: 'null',
+    );
+      }
+      class _RuJugViewErrors extends _JugViewErrors {
+      /// Description: ""
+    /// Example: "Не установлена ёмкость первого кувшина"
+    @override
+    final String firstNotFilled = Intl.message('Не установлена ёмкость первого кувшина', name: 'firstNotFilled', desc: '');
+      /// Description: ""
+    /// Example: "Не установлена ёмкость второго сосуда"
+    @override
+    final String secondNotFilled = Intl.message('Не установлена ёмкость второго сосуда', name: 'secondNotFilled', desc: '');
+      /// Description: ""
+    /// Example: "Не задан желаемый объем"
+    @override
+    final String wishedCapacityNotFilled = Intl.message('Не задан желаемый объем', name: 'wishedCapacityNotFilled', desc: '');
+      }
       class _RuJugView extends _JugView {
       /// Description: ""
     /// Example: "Нажми меня"
@@ -123,6 +209,14 @@ import 'package:intl/intl.dart';
     /// Example: "Желаемое количество: "
     @override
     final String wishedAmount = Intl.message('Желаемое количество: ', name: 'wishedAmount', desc: '');
+      @override
+    final _JugViewComputationFinished computationFinished = _RuJugViewComputationFinished();
+      /// Description: ""
+    /// Example: "Решение невозможно"
+    @override
+    final String impossibleToCompute = Intl.message('Решение невозможно', name: 'impossibleToCompute', desc: '');
+      @override
+    final _JugViewErrors errors = _RuJugViewErrors();
       }
       class _Ru extends LocalizationMessages {
       /// Description: ""

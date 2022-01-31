@@ -12,3 +12,15 @@ jugView:
     stop: Stop compute
     setWantedAmount: Set wanted amount
   wishedAmount: "Wished amount: "
+  computationFinished:
+    start: "Computations took "
+    end:
+      zero: " steps"
+      one: " step"
+      two: " steps"
+      other: " steps"
+  impossibleToCompute: Impossible to find a solution
+  errors:
+    firstNotFilled: Need to set max volume of the first jug
+    secondNotFilled: Need to set max volume of the second jug
+    wishedCapacityNotFilled: Need to set wished capacity

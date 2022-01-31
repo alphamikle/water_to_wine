@@ -34,9 +34,7 @@ class WaterJugView extends StatelessWidget {
           Tooltip(
             message: loc.jugView.actions.setWantedAmount,
             child: IconButton(
-              onPressed: () => readonlyJugChallengeState.setWishedCapacity(
-                loc.jugView.modal.wishedAmountHint,
-              ),
+              onPressed: readonlyJugChallengeState.setWishedCapacity,
               icon: const Icon(Icons.settings),
             ),
           ),
@@ -52,19 +50,13 @@ class WaterJugView extends StatelessWidget {
                 key: Keys.firstJug.asKey,
                 currentVolume: context.select((JugChallengeState me) => me.firstJug.currentVolume),
                 maxVolume: context.select((JugChallengeState me) => me.firstJug.maxVolume),
-                onPressed: () => readonlyJugChallengeState.setJugCapacity(
-                  jugId: Keys.firstJug,
-                  hint: loc.jugView.modal.firstJugHint,
-                ),
+                onPressed: () => readonlyJugChallengeState.setJugCapacity(Keys.firstJug),
               ),
               JugWithWater(
                 key: Keys.secondJug.asKey,
                 currentVolume: context.select((JugChallengeState me) => me.secondJug.currentVolume),
                 maxVolume: context.select((JugChallengeState me) => me.secondJug.maxVolume),
-                onPressed: () => readonlyJugChallengeState.setJugCapacity(
-                  jugId: Keys.secondJug,
-                  hint: loc.jugView.modal.secondJugHint,
-                ),
+                onPressed: () => readonlyJugChallengeState.setJugCapacity(Keys.secondJug),
               ),
             ],
           ),

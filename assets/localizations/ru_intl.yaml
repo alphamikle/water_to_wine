@@ -12,3 +12,15 @@ jugView:
     stop: Остановить расчёты
     setWantedAmount: Ввести желаемое количество
   wishedAmount: "Желаемое количество: "
+  computationFinished:
+    start: "Расчёты завершены за: "
+    end:
+      zero: " шагов"
+      one: " шаг"
+      two: " шага"
+      other: " шагов"
+  impossibleToCompute: Решение невозможно
+  errors:
+    firstNotFilled: Не установлена ёмкость первого кувшина
+    secondNotFilled: Не установлена ёмкость второго сосуда
+    wishedCapacityNotFilled: Не задан желаемый объем
