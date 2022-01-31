@@ -1,6 +1,7 @@
 import 'package:anitex/anitex.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
+import 'package:water_jug/domain/water_jug/entities/jug_entity.dart';
 import 'package:water_jug/domain/water_jug/logic/jug_challenge_state.dart';
 import 'package:water_jug/domain/water_jug/ui/components/jug_with_water.dart';
 import 'package:water_jug/service/tools/keys.dart';
@@ -10,6 +11,21 @@ import 'package:yalo_locale/lib.dart';
 
 class WaterJugView extends StatelessWidget {
   const WaterJugView({Key? key}) : super(key: key);
+
+  Widget _jugBuilder(BuildContext context, JugId jugId) {
+    final JugChallengeState readonlyJugChallengeState = context.read();
+    final int currentVolume = context.select((JugChallengeState me) => me.getJugById(jugId).currentVolume);
+    final int maxVolume = context.select((JugChallengeState me) => me.getJugById(jugId).maxVolume);
+    final int wishedCapacity = context.select((JugChallengeState frontend) => frontend.wishedCapacity);
+
+    return JugWithWater(
+      key: jugId.asKey,
+      currentVolume: currentVolume,
+      maxVolume: maxVolume,
+      onPressed: () => readonlyJugChallengeState.setJugCapacity(jugId),
+      isWine: currentVolume > 0 && maxVolume > 0 && wishedCapacity == currentVolume,
+    );
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -45,20 +61,7 @@ class WaterJugView extends StatelessWidget {
         child: Center(
           child: Row(
             mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-            children: [
-              JugWithWater(
-                key: Keys.firstJug.asKey,
-                currentVolume: context.select((JugChallengeState me) => me.firstJug.currentVolume),
-                maxVolume: context.select((JugChallengeState me) => me.firstJug.maxVolume),
-                onPressed: () => readonlyJugChallengeState.setJugCapacity(Keys.firstJug),
-              ),
-              JugWithWater(
-                key: Keys.secondJug.asKey,
-                currentVolume: context.select((JugChallengeState me) => me.secondJug.currentVolume),
-                maxVolume: context.select((JugChallengeState me) => me.secondJug.maxVolume),
-                onPressed: () => readonlyJugChallengeState.setJugCapacity(Keys.secondJug),
-              ),
-            ],
+            children: [Keys.firstJug, Keys.secondJug].map((JugId jugId) => _jugBuilder(context, jugId)).toList(),
           ),
         ),
       ),

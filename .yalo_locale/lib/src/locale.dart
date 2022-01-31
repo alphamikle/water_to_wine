@@ -96,6 +96,7 @@ import 'package:intl/intl.dart';
       late _JugViewComputationFinished computationFinished;
       late String impossibleToCompute;
       late _JugViewErrors errors;
+      late String thisIsWine;
       }
       class _EnJugView extends _JugView {
       /// Description: ""
@@ -118,6 +119,10 @@ import 'package:intl/intl.dart';
     final String impossibleToCompute = Intl.message('Impossible to find a solution', name: 'impossibleToCompute', desc: '');
       @override
     final _JugViewErrors errors = _EnJugViewErrors();
+      /// Description: ""
+    /// Example: "Wine"
+    @override
+    final String thisIsWine = Intl.message('Wine', name: 'thisIsWine', desc: '');
       }
       abstract class LocalizationMessages {
       late String appTitle;
@@ -217,6 +222,10 @@ import 'package:intl/intl.dart';
     final String impossibleToCompute = Intl.message('Решение невозможно', name: 'impossibleToCompute', desc: '');
       @override
     final _JugViewErrors errors = _RuJugViewErrors();
+      /// Description: ""
+    /// Example: "Вино"
+    @override
+    final String thisIsWine = Intl.message('Вино', name: 'thisIsWine', desc: '');
       }
       class _Ru extends LocalizationMessages {
       /// Description: ""

@@ -19,6 +19,11 @@ class CapacityAmountModal extends StatefulWidget {
 
 class _CapacityAmountModalState extends State<CapacityAmountModal> {
   final TextEditingController _controller = TextEditingController();
+  final FocusNode _focusNode = FocusNode();
+
+  void _complete() {
+    Navigator.of(context).pop(int.tryParse(_controller.text));
+  }
 
   @override
   void initState() {
@@ -27,6 +32,7 @@ class _CapacityAmountModalState extends State<CapacityAmountModal> {
     if (widget.initialValue > 0) {
       _controller.value = TextEditingValue(text: widget.initialValue.toString());
     }
+    _focusNode.requestFocus();
   }
 
   @override
@@ -47,6 +53,8 @@ class _CapacityAmountModalState extends State<CapacityAmountModal> {
             inputFormatters: [
               FilteringTextInputFormatter.allow(RegExp(r'^[1-9][0-9]*$')),
             ],
+            focusNode: _focusNode,
+            onEditingComplete: _complete,
           ),
           Row(
             children: [
@@ -54,7 +62,7 @@ class _CapacityAmountModalState extends State<CapacityAmountModal> {
                 child: Padding(
                   padding: EdgeInsets.only(top: Paddings.x1, bottom: MediaQuery.of(context).viewInsets.bottom),
                   child: ElevatedButton(
-                    onPressed: () => Navigator.of(context).pop(int.tryParse(_controller.text)),
+                    onPressed: _complete,
                     child: Text(loc.jugView.modal.button),
                   ),
                 ),

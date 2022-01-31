@@ -5,8 +5,8 @@ void main() {
   group('Decision finder tests', () {
     test('Easy level', () {
       final finder = DecisionFinder();
-      finder.find(first: 3, second: 10, wished: 4);
-      expect(1, 1);
+      final path = finder.findShortestPath(first: 3, second: 5, wished: 4);
+      expect(path?.length, 7);
     });
   });
 }

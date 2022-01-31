@@ -12,6 +12,7 @@ class JugWithWater extends StatefulWidget {
   const JugWithWater({
     required this.currentVolume,
     required this.maxVolume,
+    required this.isWine,
     this.duration = Durations.jugFillingDuration,
     this.onPressed,
     Key? key,
@@ -22,6 +23,7 @@ class JugWithWater extends StatefulWidget {
   final int currentVolume;
   final Duration duration;
   final VoidCallback? onPressed;
+  final bool isWine;
 
   @override
   State<JugWithWater> createState() => _JugWithWaterState();
@@ -79,6 +81,7 @@ class _JugWithWaterState extends State<JugWithWater> with SingleTickerProviderSt
               animation: _animation,
               builder: (_, __) => Water(
                 quantity: widget.maxVolume == 0 ? 0 : _quantity.animate(_animation).value / widget.maxVolume,
+                isWine: widget.isWine,
               ),
             ),
           ),
@@ -94,7 +97,11 @@ class _JugWithWaterState extends State<JugWithWater> with SingleTickerProviderSt
                 child: Padding(
                   padding: const EdgeInsets.all(Paddings.x1),
                   child: AnimatedText(
-                    widget.maxVolume == 0 ? loc.jugView.emptyJugHint : '${widget.currentVolume} / ${widget.maxVolume}',
+                    widget.isWine
+                        ? loc.jugView.thisIsWine
+                        : widget.maxVolume == 0
+                            ? loc.jugView.emptyJugHint
+                            : '${widget.currentVolume} / ${widget.maxVolume}',
                     style: const TextStyle(fontSize: 24, fontWeight: FontWeight.bold),
                   ),
                 ),

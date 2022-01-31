@@ -2,7 +2,8 @@ import 'dart:collection';
 
 import 'package:flutter/cupertino.dart';
 import 'package:water_jug/domain/water_jug/entities/jug_entity.dart';
-import 'package:water_jug/domain/water_jug/entities/jug_operation.dart';
+import 'package:water_jug/domain/water_jug/entities/node.dart';
+import 'package:water_jug/domain/water_jug/logic/decision_finder.dart';
 import 'package:water_jug/service/locale/locale_delegate.dart';
 import 'package:water_jug/service/notifications/snack_bar_delegate.dart';
 import 'package:water_jug/service/routing/modal_delegate.dart';
@@ -34,7 +35,7 @@ class JugChallengeState with ChangeNotifier {
       maxVolume: 0,
     ),
   };
-  final Queue<JugOperation> _operations = Queue();
+  final Queue<Node> _operations = Queue();
   int _totalOperation = 0;
 
   bool isFilled = false;
@@ -43,6 +44,14 @@ class JugChallengeState with ChangeNotifier {
 
   JugEntity get firstJug => _jugs[Keys.firstJug]!;
   JugEntity get secondJug => _jugs[Keys.secondJug]!;
+  JugEntity getJugById(JugId jugId) {
+    final jug = _jugs[jugId];
+    if (jug == null) {
+      throw Exception('Not found Jug for id = $jugId');
+    }
+    return jug;
+  }
+
   bool get isWishedCapacityFilled => wishedCapacity > 0;
 
   Future<void> setJugCapacity(JugId jugId) async {
@@ -53,6 +62,7 @@ class JugChallengeState with ChangeNotifier {
       hint: hint,
     );
     if (maxCapacity != null && maxCapacity > 0) {
+      await _resetNotEmptyJugs();
       _jugs[jugId] = _jugs[jugId]!.copyWith(maxVolume: maxCapacity);
       notifyListeners();
     }
@@ -64,6 +74,7 @@ class JugChallengeState with ChangeNotifier {
       hint: _localeDelegate.loc.jugView.modal.wishedAmountHint,
     );
     if (wishedCapacity != null && wishedCapacity > 0) {
+      await _resetNotEmptyJugs();
       this.wishedCapacity = wishedCapacity;
       notifyListeners();
     }
@@ -85,14 +96,26 @@ class JugChallengeState with ChangeNotifier {
     notifyListeners();
   }
 
+  Future<void> _resetNotEmptyJugs() async {
+    if (firstJug.currentVolume != 0 || secondJug.currentVolume != 0) {
+      _jugs[Keys.firstJug] = firstJug.copyWith(currentVolume: 0);
+      _jugs[Keys.secondJug] = secondJug.copyWith(currentVolume: 0);
+      notifyListeners();
+      await Future<void>.delayed(Durations.jugFillingDuration);
+    }
+  }
+
   Future<void> _computeOperations() async {
-    _operations.addAll([
-      const JugOperation(jugId: Keys.firstJug, type: JugOperationType.fill),
-      const JugOperation(jugId: Keys.firstJug, type: JugOperationType.transfer),
-      const JugOperation(jugId: Keys.firstJug, type: JugOperationType.fill),
-      const JugOperation(jugId: Keys.firstJug, type: JugOperationType.transfer),
-    ]);
-    _totalOperation = _operations.length;
+    final List<Node>? path = DecisionFinder().findShortestPath(first: firstJug.maxVolume, second: secondJug.maxVolume, wished: wishedCapacity);
+    if (path == null) {
+      await _resetState();
+      _snackBarDelegate.showError(_localeDelegate.loc.jugView.impossibleToCompute);
+      throw Exception(_localeDelegate.loc.jugView.impossibleToCompute);
+    }
+    _operations.addAll(path);
+
+    /// We don't count Node(0,0)
+    _totalOperation = _operations.length - 1;
   }
 
   Future<void> _playOperations() async {
@@ -101,44 +124,13 @@ class JugChallengeState with ChangeNotifier {
     }
   }
 
-  Future<void> _playOperation(JugOperation operation) async {
-    switch (operation.type) {
-      case JugOperationType.fill:
-        {
-          _jugs[operation.jugId] = _jugs[operation.jugId]!.copyWith(
-            currentVolume: _jugs[operation.jugId]!.maxVolume,
-          );
-          break;
-        }
-      case JugOperationType.empty:
-        {
-          _jugs[operation.jugId] = _jugs[operation.jugId]!.copyWith(
-            currentVolume: 0,
-          );
-          break;
-        }
-      case JugOperationType.transfer:
-        {
-          final JugId oppositeJugId = operation.jugId == Keys.firstJug ? Keys.secondJug : Keys.firstJug;
-          final int currentAmount = _jugs[operation.jugId]!.currentVolume;
-          final int oppositeAmount = _jugs[oppositeJugId]!.currentVolume;
-          final int oppositeMaxVolume = _jugs[oppositeJugId]!.maxVolume;
-          final int maxTransferableAmount = oppositeMaxVolume - oppositeAmount;
-          late final int transferableAmount;
-          if (currentAmount <= maxTransferableAmount) {
-            transferableAmount = currentAmount;
-          } else {
-            transferableAmount = maxTransferableAmount;
-          }
-          _jugs[operation.jugId] = _jugs[operation.jugId]!.copyWith(currentVolume: currentAmount - transferableAmount);
-          _jugs[oppositeJugId] = _jugs[oppositeJugId]!.copyWith(currentVolume: oppositeAmount + transferableAmount);
-          break;
-        }
-      default:
-        {
-          assert(false, 'Unregistered $JugOperationType: ${operation.type}');
-        }
-    }
+  Future<void> _playOperation(Node operation) async {
+    _jugs[Keys.firstJug] = firstJug.copyWith(
+      currentVolume: operation.first,
+    );
+    _jugs[Keys.secondJug] = secondJug.copyWith(
+      currentVolume: operation.second,
+    );
     notifyListeners();
     await Future<void>.delayed(Durations.jugFillingDelay);
   }

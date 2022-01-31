@@ -24,3 +24,4 @@ jugView:
     firstNotFilled: Не установлена ёмкость первого кувшина
     secondNotFilled: Не установлена ёмкость второго сосуда
     wishedCapacityNotFilled: Не задан желаемый объем
+  thisIsWine: Вино

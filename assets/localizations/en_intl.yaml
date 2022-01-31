@@ -24,3 +24,4 @@ jugView:
     firstNotFilled: Need to set max volume of the first jug
     secondNotFilled: Need to set max volume of the second jug
     wishedCapacityNotFilled: Need to set wished capacity
+  thisIsWine: Wine
