@@ -30,3 +30,4 @@ jugView:
     secondNotFilled: Не установлена ёмкость второго сосуда
     wishedCapacityNotFilled: Не задан желаемый объем
   thisIsWine: Вино
+  longComputations: Расчёты займут определенное время. Подождите.

@@ -1,3 +1,4 @@
+import 'dart:async';
 import 'dart:collection';
 
 import 'package:flutter/cupertino.dart';
@@ -86,7 +87,27 @@ class JugChallengeState with ChangeNotifier {
     await _resetState();
     isPlaying = true;
     notifyListeners();
-    await _computeOperations();
+    bool isComputed = false;
+    bool isTooLong = false;
+    Future<void>.delayed(Durations.maxComputationTime, () {
+      if (!isComputed) {
+        isTooLong = true;
+        _snackBarDelegate.showNotification(
+          _localeDelegate.loc.jugView.longComputations,
+          duration: const Duration(days: 1),
+        );
+      }
+    });
+    try {
+      await _computeOperations();
+    } catch (error) {
+      isComputed = true;
+      rethrow;
+    }
+    if (isTooLong) {
+      _snackBarDelegate.hideSnackBar();
+    }
+    isComputed = true;
     await _playOperations();
     _snackBarDelegate.showNotification('${_localeDelegate.loc.jugView.computationFinished.start}$_totalOperation${_localeDelegate.loc.jugView.computationFinished.end(_totalOperation)}');
     stop();
@@ -122,7 +143,7 @@ class JugChallengeState with ChangeNotifier {
   }
 
   Future<void> _playOperations() async {
-    while (_operations.isNotEmpty) {
+    while (_operations.isNotEmpty && isPlaying) {
       await _playOperation(_operations.removeFirst());
     }
   }

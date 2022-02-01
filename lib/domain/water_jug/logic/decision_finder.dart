@@ -14,7 +14,7 @@ class DecisionFinder {
     final graph = await _buildGraph(first: first, second: second);
     final path = await _findPath(graph, const Node(0, 0), wished);
     final durationInMs = (DateTime.now().microsecondsSinceEpoch - startTimestamp) / 1000;
-    print('[${durationInMs}ms] SHORTEST PATH: $path');
+    print('[${durationInMs}ms] | LENGTH: (${path?.length ?? 0 - 1}) | PATH: $path');
     return path;
   }
 

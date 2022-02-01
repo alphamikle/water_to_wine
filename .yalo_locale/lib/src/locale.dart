@@ -122,6 +122,7 @@ import 'package:intl/intl.dart';
       late String impossibleToCompute;
       late _JugViewErrors errors;
       late String thisIsWine;
+      late String longComputations;
       }
       class _EnJugView extends _JugView {
       /// Description: ""
@@ -148,6 +149,10 @@ import 'package:intl/intl.dart';
     /// Example: "Wine"
     @override
     final String thisIsWine = Intl.message('Wine', name: 'thisIsWine', desc: '');
+      /// Description: ""
+    /// Example: "Computations will take longer than expected. Please wait"
+    @override
+    final String longComputations = Intl.message('Computations will take longer than expected. Please wait', name: 'longComputations', desc: '');
       }
       abstract class LocalizationMessages {
       late String appTitle;
@@ -271,6 +276,10 @@ import 'package:intl/intl.dart';
     /// Example: "Вино"
     @override
     final String thisIsWine = Intl.message('Вино', name: 'thisIsWine', desc: '');
+      /// Description: ""
+    /// Example: "Расчёты займут определенное время. Подождите."
+    @override
+    final String longComputations = Intl.message('Расчёты займут определенное время. Подождите.', name: 'longComputations', desc: '');
       }
       class _Ru extends LocalizationMessages {
       /// Description: ""

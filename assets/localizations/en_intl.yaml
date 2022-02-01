@@ -30,3 +30,4 @@ jugView:
     secondNotFilled: Need to set max volume of the second jug
     wishedCapacityNotFilled: Need to set wished capacity
   thisIsWine: Wine
+  longComputations: Computations will take longer than expected. Please wait
