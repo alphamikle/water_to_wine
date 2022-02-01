@@ -12,6 +12,15 @@ Future<void> main() async {
   runApp(
     DevicePreview(
       availableLocales: supportedLocales,
+      tools: const [
+        DeviceSection(
+          orientation: false,
+          frameVisibility: false,
+        ),
+        SystemSection(
+          theme: false,
+        ),
+      ],
       builder: (_) => MyApp(
         initializer: initializer,
       ),

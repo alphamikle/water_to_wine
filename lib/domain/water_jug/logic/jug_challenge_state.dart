@@ -83,9 +83,9 @@ class JugChallengeState with ChangeNotifier {
 
   Future<void> play() async {
     _validateState();
+    await _resetState();
     isPlaying = true;
     notifyListeners();
-    await _resetState();
     await _computeOperations();
     await _playOperations();
     _snackBarDelegate.showNotification('${_localeDelegate.loc.jugView.computationFinished.start}$_totalOperation${_localeDelegate.loc.jugView.computationFinished.end(_totalOperation)}');
@@ -107,7 +107,7 @@ class JugChallengeState with ChangeNotifier {
   }
 
   Future<void> _computeOperations() async {
-    final List<Node>? path = DecisionFinder().findShortestPath(first: firstJug.maxVolume, second: secondJug.maxVolume, wished: wishedCapacity);
+    final List<Node>? path = await DecisionFinder().findShortestPath(first: firstJug.maxVolume, second: secondJug.maxVolume, wished: wishedCapacity);
     if (path == null) {
       await _resetState();
       stop();

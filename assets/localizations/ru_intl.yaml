@@ -1,7 +1,7 @@
 appTitle:
-  Водные кувшины
+  Кувшины
 jugView:
-  emptyJugHint: Нажми меня
+  emptyJugHint: Нажми
   modal:
     button: Выбрать
     firstJugHint: Введите объем первого кувшина
@@ -16,7 +16,7 @@ jugView:
     stop: Остановить расчёты
     setWantedAmount: Ввести желаемое количество
     additional: Дополнительная информация
-  wishedAmount: "Желаемое количество: "
+  wishedAmount: "Сколько надо: "
   computationFinished:
     start: "Расчёты завершены за: "
     end:

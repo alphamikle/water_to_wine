@@ -248,17 +248,17 @@ import 'package:intl/intl.dart';
       }
       class _RuJugView extends _JugView {
       /// Description: ""
-    /// Example: "Нажми меня"
+    /// Example: "Нажми"
     @override
-    final String emptyJugHint = Intl.message('Нажми меня', name: 'emptyJugHint', desc: '');
+    final String emptyJugHint = Intl.message('Нажми', name: 'emptyJugHint', desc: '');
       @override
     final _JugViewModal modal = _RuJugViewModal();
       @override
     final _JugViewActions actions = _RuJugViewActions();
       /// Description: ""
-    /// Example: "Желаемое количество: "
+    /// Example: "Сколько надо: "
     @override
-    final String wishedAmount = Intl.message('Желаемое количество: ', name: 'wishedAmount', desc: '');
+    final String wishedAmount = Intl.message('Сколько надо: ', name: 'wishedAmount', desc: '');
       @override
     final _JugViewComputationFinished computationFinished = _RuJugViewComputationFinished();
       /// Description: ""
@@ -274,9 +274,9 @@ import 'package:intl/intl.dart';
       }
       class _Ru extends LocalizationMessages {
       /// Description: ""
-    /// Example: "Водные кувшины"
+    /// Example: "Кувшины"
     @override
-    final String appTitle = Intl.message('Водные кувшины', name: 'appTitle', desc: '');
+    final String appTitle = Intl.message('Кувшины', name: 'appTitle', desc: '');
       @override
     final _JugView jugView = _RuJugView();
       }

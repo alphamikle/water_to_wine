@@ -3,25 +3,30 @@ import 'dart:math';
 import 'package:water_jug/domain/water_jug/entities/node.dart';
 
 class DecisionFinder {
-  List<Node>? findShortestPath({
+  int _syncLimitCounter = 0;
+
+  Future<List<Node>?> findShortestPath({
     required int first,
     required int second,
     required int wished,
-  }) {
-    final graph = _buildGraph(first: first, second: second);
-    final path = _findPath(graph, const Node(0, 0), wished);
-    print('SHORTEST PATH: $path');
+  }) async {
+    final int startTimestamp = DateTime.now().microsecondsSinceEpoch;
+    final graph = await _buildGraph(first: first, second: second);
+    final path = await _findPath(graph, const Node(0, 0), wished);
+    final durationInMs = (DateTime.now().microsecondsSinceEpoch - startTimestamp) / 1000;
+    print('[${durationInMs}ms] SHORTEST PATH: $path');
     return path;
   }
 
-  Map<Node, List<Node>> _buildGraph({
+  Future<Map<Node, List<Node>>> _buildGraph({
     required int first,
     required int second,
-  }) {
+  }) async {
     final Map<Node, List<Node>> graph = {};
-    final gcd = _findGreatestCommonDivisor(first: first, second: second);
+    final gcd = await _findGreatestCommonDivisor(first: first, second: second);
     for (int f = 0; f < (first / gcd + 1).toInt(); f++) {
       for (int s = 0; s < (second / gcd + 1).toInt(); s++) {
+        await _asyncWindow();
         graph[Node(f * gcd, s * gcd)] = _createEdges(first: f, second: s, firstMax: first, secondMax: second);
       }
     }
@@ -70,10 +75,10 @@ class DecisionFinder {
     return edges.toList();
   }
 
-  int _findGreatestCommonDivisor({
+  Future<int> _findGreatestCommonDivisor({
     required int first,
     required int second,
-  }) {
+  }) async {
     int biggest = max(first, second);
     int smallest = min(first, second);
     while (biggest != smallest) {
@@ -81,6 +86,7 @@ class DecisionFinder {
       final int second = smallest;
       biggest = max(first, second);
       smallest = min(first, second);
+      await _asyncWindow();
     }
     if (biggest % 2 == 0 && first % 2 == 0 && second % 2 == 0) {
       return 1;
@@ -88,7 +94,7 @@ class DecisionFinder {
     return biggest;
   }
 
-  List<Node>? _findPath(Map<Node, List<Node>> graph, Node node, int wishedAmount, [List<Node> path = const []]) {
+  Future<List<Node>?> _findPath(Map<Node, List<Node>> graph, Node node, int wishedAmount, [List<Node> path = const []]) async {
     path = [...path, node];
     if (node[0] == wishedAmount || node[1] == wishedAmount) {
       return path;
@@ -98,8 +104,9 @@ class DecisionFinder {
     }
     List<Node>? shortestPath;
     for (final Node graphNode in graph[node]!) {
+      await _asyncWindow();
       if (!path.contains(graphNode)) {
-        final newPath = _findPath(graph, graphNode, wishedAmount, path);
+        final newPath = await _findPath(graph, graphNode, wishedAmount, path);
         if (newPath != null) {
           if (shortestPath == null || newPath.length < shortestPath.length) {
             shortestPath = newPath;
@@ -108,5 +115,13 @@ class DecisionFinder {
       }
     }
     return shortestPath;
+  }
+
+  Future<void> _asyncWindow() async {
+    _syncLimitCounter++;
+    if (_syncLimitCounter == 100) {
+      await Future<void>.delayed(Duration.zero);
+      _syncLimitCounter = 0;
+    }
   }
 }
