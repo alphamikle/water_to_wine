@@ -7,10 +7,15 @@ jugView:
     firstJugHint: Set capacity for the first jug
     secondJugHint: Set capacity for the second jug
     wishedAmountHint: Set wished capacity
+    firstJug: "First: "
+    secondJug: "Second: "
+    noSteps: No any steps for now
+    step: "Step: "
   actions:
     start: Start computation
     stop: Stop compute
     setWantedAmount: Set wanted amount
+    additional: Additional info
   wishedAmount: "Wished amount: "
   computationFinished:
     start: "Computations took "

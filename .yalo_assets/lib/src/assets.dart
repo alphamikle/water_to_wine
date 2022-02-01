@@ -13,6 +13,8 @@ Asset.ruIntl: 'assets/localizations/ru_intl.yaml',
 };
 
 class Assets {
+String get requirements => requirementsS;
+static const String requirementsS = 'assets/documents/requirements.pdf';
 String get bottle => bottleS;
 static const String bottleS = 'assets/images/bottle.svg';
 String get glass => glassS;

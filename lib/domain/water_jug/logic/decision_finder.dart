@@ -9,7 +9,9 @@ class DecisionFinder {
     required int wished,
   }) {
     final graph = _buildGraph(first: first, second: second);
-    return _findPath(graph, const Node(0, 0), wished);
+    final path = _findPath(graph, const Node(0, 0), wished);
+    print('SHORTEST PATH: $path');
+    return path;
   }
 
   Map<Node, List<Node>> _buildGraph({
@@ -105,7 +107,6 @@ class DecisionFinder {
         }
       }
     }
-    print('SHORTEST PATH: $shortestPath');
     return shortestPath;
   }
 }

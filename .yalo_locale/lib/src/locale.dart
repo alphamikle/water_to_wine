@@ -8,6 +8,10 @@ import 'package:intl/intl.dart';
       late String firstJugHint;
       late String secondJugHint;
       late String wishedAmountHint;
+      late String firstJug;
+      late String secondJug;
+      late String noSteps;
+      late String step;
       }
       class _EnJugViewModal extends _JugViewModal {
       /// Description: ""
@@ -26,11 +30,28 @@ import 'package:intl/intl.dart';
     /// Example: "Set wished capacity"
     @override
     final String wishedAmountHint = Intl.message('Set wished capacity', name: 'wishedAmountHint', desc: '');
+      /// Description: ""
+    /// Example: "First: "
+    @override
+    final String firstJug = Intl.message('First: ', name: 'firstJug', desc: '');
+      /// Description: ""
+    /// Example: "Second: "
+    @override
+    final String secondJug = Intl.message('Second: ', name: 'secondJug', desc: '');
+      /// Description: ""
+    /// Example: "No any steps for now"
+    @override
+    final String noSteps = Intl.message('No any steps for now', name: 'noSteps', desc: '');
+      /// Description: ""
+    /// Example: "Step: "
+    @override
+    final String step = Intl.message('Step: ', name: 'step', desc: '');
       }
       abstract class _JugViewActions {
       late String start;
       late String stop;
       late String setWantedAmount;
+      late String additional;
       }
       class _EnJugViewActions extends _JugViewActions {
       /// Description: ""
@@ -45,6 +66,10 @@ import 'package:intl/intl.dart';
     /// Example: "Set wanted amount"
     @override
     final String setWantedAmount = Intl.message('Set wanted amount', name: 'setWantedAmount', desc: '');
+      /// Description: ""
+    /// Example: "Additional info"
+    @override
+    final String additional = Intl.message('Additional info', name: 'additional', desc: '');
       }
       abstract class _JugViewComputationFinished {
       late String start;
@@ -153,6 +178,22 @@ import 'package:intl/intl.dart';
     /// Example: "Введите требуемый объем"
     @override
     final String wishedAmountHint = Intl.message('Введите требуемый объем', name: 'wishedAmountHint', desc: '');
+      /// Description: ""
+    /// Example: "Первый: "
+    @override
+    final String firstJug = Intl.message('Первый: ', name: 'firstJug', desc: '');
+      /// Description: ""
+    /// Example: "Второй: "
+    @override
+    final String secondJug = Intl.message('Второй: ', name: 'secondJug', desc: '');
+      /// Description: ""
+    /// Example: "Шагов пока нет"
+    @override
+    final String noSteps = Intl.message('Шагов пока нет', name: 'noSteps', desc: '');
+      /// Description: ""
+    /// Example: "Шаг: "
+    @override
+    final String step = Intl.message('Шаг: ', name: 'step', desc: '');
       }
       class _RuJugViewActions extends _JugViewActions {
       /// Description: ""
@@ -167,6 +208,10 @@ import 'package:intl/intl.dart';
     /// Example: "Ввести желаемое количество"
     @override
     final String setWantedAmount = Intl.message('Ввести желаемое количество', name: 'setWantedAmount', desc: '');
+      /// Description: ""
+    /// Example: "Дополнительная информация"
+    @override
+    final String additional = Intl.message('Дополнительная информация', name: 'additional', desc: '');
       }
       class _RuJugViewComputationFinished extends _JugViewComputationFinished {
       /// Description: ""

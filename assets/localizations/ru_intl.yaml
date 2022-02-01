@@ -7,10 +7,15 @@ jugView:
     firstJugHint: Введите объем первого кувшина
     secondJugHint: Введите объем второго кувшина
     wishedAmountHint: Введите требуемый объем
+    firstJug: "Первый: "
+    secondJug: "Второй: "
+    noSteps: Шагов пока нет
+    step: "Шаг: "
   actions:
     start: Начать расчёты
     stop: Остановить расчёты
     setWantedAmount: Ввести желаемое количество
+    additional: Дополнительная информация
   wishedAmount: "Желаемое количество: "
   computationFinished:
     start: "Расчёты завершены за: "

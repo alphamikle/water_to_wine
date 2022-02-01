@@ -4,6 +4,7 @@ import 'package:provider/provider.dart';
 import 'package:water_jug/domain/water_jug/entities/jug_entity.dart';
 import 'package:water_jug/domain/water_jug/logic/jug_challenge_state.dart';
 import 'package:water_jug/domain/water_jug/ui/components/jug_with_water.dart';
+import 'package:water_jug/service/routing/modal_delegate.dart';
 import 'package:water_jug/service/tools/keys.dart';
 import 'package:water_jug/service/tools/paddings.dart';
 import 'package:water_jug/service/ui/simple_animated_icon.dart';
@@ -52,6 +53,13 @@ class WaterJugView extends StatelessWidget {
             child: IconButton(
               onPressed: readonlyJugChallengeState.setWishedCapacity,
               icon: const Icon(Icons.settings),
+            ),
+          ),
+          Tooltip(
+            message: loc.jugView.actions.additional,
+            child: IconButton(
+              onPressed: context.read<ModalDelegate>().showSteps,
+              icon: const Icon(Icons.help_outline),
             ),
           ),
         ],

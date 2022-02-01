@@ -36,6 +36,7 @@ class JugChallengeState with ChangeNotifier {
     ),
   };
   final Queue<Node> _operations = Queue();
+  final List<Node> steps = [];
   int _totalOperation = 0;
 
   bool isFilled = false;
@@ -82,9 +83,9 @@ class JugChallengeState with ChangeNotifier {
 
   Future<void> play() async {
     _validateState();
-    await _resetState();
     isPlaying = true;
     notifyListeners();
+    await _resetState();
     await _computeOperations();
     await _playOperations();
     _snackBarDelegate.showNotification('${_localeDelegate.loc.jugView.computationFinished.start}$_totalOperation${_localeDelegate.loc.jugView.computationFinished.end(_totalOperation)}');
@@ -114,6 +115,7 @@ class JugChallengeState with ChangeNotifier {
       throw Exception(_localeDelegate.loc.jugView.impossibleToCompute);
     }
     _operations.addAll(path);
+    steps.addAll(path.where((Node me) => me.first > 0 || me.second > 0));
 
     /// We don't count Node(0,0)
     _totalOperation = _operations.length - 1;
@@ -137,6 +139,8 @@ class JugChallengeState with ChangeNotifier {
   }
 
   Future<void> _resetState() async {
+    steps.clear();
+    _operations.clear();
     if (_totalOperation == 0 && firstJug.currentVolume == 0 && secondJug.currentVolume == 0) {
       return;
     }
