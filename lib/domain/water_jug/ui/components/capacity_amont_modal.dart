@@ -33,6 +33,7 @@ class _CapacityAmountModalState extends State<CapacityAmountModal> {
       _controller.value = TextEditingValue(text: widget.initialValue.toString());
     }
     _focusNode.requestFocus();
+    _controller.selection = TextSelection(baseOffset: 0, extentOffset: _controller.text.length);
   }
 
   @override

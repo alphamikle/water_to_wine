@@ -1,16 +1,3 @@
-# water_jug
+# Water to wine
 
-Experiments with water and jugs
-
-## Getting Started
-
-This project is a starting point for a Flutter application.
-
-A few resources to get you started if this is your first Flutter project:
-
-- [Lab: Write your first Flutter app](https://flutter.dev/docs/get-started/codelab)
-- [Cookbook: Useful Flutter samples](https://flutter.dev/docs/cookbook)
-
-For help getting started with Flutter, view our
-[online documentation](https://flutter.dev/docs), which offers tutorials,
-samples, guidance on mobile development, and a full API reference.
+Have you ever wanted to learn the secrets of alchemy and learn how to turn water into wine? If the answer is "yes" - then follow the [link](https://alphamikle.github.io/water_to_wine) to see the demo. Learn the [code](https://github.com/alphamikle/water_to_wine) to learn the secrets of the universe. And read the requirements to understand how everything works around.

@@ -8,27 +8,26 @@ environment:
 dependencies:
   flutter:
     sdk: flutter
-  cupertino_icons: ^1.0.2
+  cupertino_icons: ^1.0.4
   intl: ^0.17.0
+  flutter_svg: ^1.0.3
+  provider: ^6.0.2
+  # This is my own package to get implicit text animations
+  anitex: ^2.0.0
+  freezed_annotation: ^1.1.0
+  device_preview: ^1.0.0
+  # This is generated packages from yalo
   yalo_assets:
     path: .yalo_assets
   yalo_locale:
     path: .yalo_locale
-  flutter_svg: ^1.0.3
-  provider: ^6.0.2
-  anitex: ^2.0.0
-  freezed_annotation: ^1.1.0
-  device_preview: ^1.0.0
-
-dependency_overrides:
-  yalo:
-    path: ../yalo
 
 dev_dependencies:
   flutter_test:
     sdk: flutter
   flutter_lints: ^1.0.4
-  yalo: ^2.0.2
+  # This is my own package to generate localizations from .yaml files
+  yalo: ^2.0.3
   freezed: ^1.1.1
   build_runner: ^2.1.7
 
